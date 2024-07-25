@@ -1,4 +1,4 @@
-# conftest.py
+# pylint: disable=missing-module-docstring, missing-function-docstring
 import pytest
 from httpx import AsyncClient
 from app.main import app  # Adjust import path as necessary
@@ -9,7 +9,7 @@ async def client():
         yield ac
 
 @pytest.fixture
-async def get_access_token_for_test(client):
+async def get_access_token_for_test(test_client):
     form_data = {"username": "admin", "password": "secret"}
-    response = await client.post("/token", data=form_data)
+    response = await test_client.post("/token", data=form_data)
     return response.json()["access_token"]
